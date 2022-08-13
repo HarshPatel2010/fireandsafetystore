@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useRef,useEffect } from "react";
+import { useDispatch,useSelector } from 'react-redux';
 import {
   AiOutlineShoppingCart,
   AiFillCloseCircle,
@@ -8,13 +9,21 @@ import {
   AiFillMinusCircle,
 } from "react-icons/ai";
 import { BsFillBagCheckFill } from "react-icons/bs";
+import { saveCart } from "../redux/slices/cartSlice";
 
 const Navbar = () => {
   const ref = useRef(null);
-  useEffect(() => {
-  console.log("hello");
-  
-  }, [])
+  useEffect(()=>{
+    console.log("rendering");
+   try {
+    if(localStorage.getItem("cart")){
+      dispatch(saveCart(JSON.parse(localStorage.getItem("cart"))))
+    }
+   } catch (error) {
+    console.error(error);
+    localStorage.clear()
+   }
+  },[])
   
   const toggleCart = () => {
     if (ref.current.classList.contains("translate-x-full")) {

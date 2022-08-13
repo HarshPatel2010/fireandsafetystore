@@ -32,8 +32,8 @@ export const cartSlice = createSlice({
             delete state.cart[itemcode]
       }
     },
-    saveCart:(state)=>{
-        localStorage.setItem("cart",state.cart);
+    saveCart:(state,action)=>{
+        localStorage.setItem("cart",action.payload);
     },
     clearCart:(state)=>{
       state.cart={};

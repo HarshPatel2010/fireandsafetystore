@@ -1,13 +1,14 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import { useEffect } from 'react'
+import { useEffect } from 'react';
+import { useDispatch,useSelector } from 'react-redux';
 
 
 export default function Home() {
-  useEffect(()=>{
-    console.log("rendering")
-  },[])
+  const dispatch = useDispatch();
+
+
   return (
     // <div className={styles.container}>
     <div className='w-full'>
