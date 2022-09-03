@@ -24,7 +24,7 @@ const Checkout = () => {
   useEffect(() => {
     if (successStore === true) {
       dispatch(saveCart(cart));
-      console.log("lss", cart);
+    
     }
   }, [successStore]);
   return (
@@ -160,7 +160,7 @@ const Checkout = () => {
             <div className="my-4 text-base font-normal">Your cart is Empty</div>
           )}
           {Object.keys(cart).map((item) => {
-            console.log(item, "lo");
+          
             return (
               <li key={item}>
                 <div className="item flex my-5">

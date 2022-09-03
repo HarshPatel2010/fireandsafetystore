@@ -9,10 +9,7 @@ const test = () => {
     const cart = useSelector(state=>state.cart.cart);
     const subtotal = useSelector(state=>state.cart.subTotal);
     const dispatch = useDispatch()
-    useEffect(() => {
-    console.log("cart is",cart);
-    console.log("subtotal is",subtotal)
-    }, [])
+   
     
 
    

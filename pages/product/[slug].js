@@ -25,16 +25,16 @@ const Slug = () => {
 
   const addToCartFunction =()=>{
 
-    console.log("okokok",selectedItemInfo);
+
      dispatch(addToCart(selectedItemInfo));
   }
 
   const handleChange = (e)=>{
     setpin(e.target.value);
-    console.log(pin)
+
   }
   const checkserviceability =async()=>{
-    console.log("clicked");
+
     let allPincodes = await fetch("http://localhost:3000/api/pincode");
     let allPincodesJson =await allPincodes.json();
     if(allPincodesJson.includes(parseInt(pin))){
@@ -42,7 +42,7 @@ const Slug = () => {
     }else{
       setservice(false)
     }
-    console.log("is the service is available ?",service)
+ 
   }
   return (
     <>

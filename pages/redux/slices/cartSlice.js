@@ -13,7 +13,7 @@ export const cartSlice = createSlice({
   reducers: {
     addToCart:(state,action)=>{
      
-      console.log("action.payload is",action.payload)
+    
         const name = action.payload.name;
         const price = action.payload.price;
         const qty = action.payload.qty;
@@ -38,8 +38,7 @@ export const cartSlice = createSlice({
     },
     removeFromCart:(state,action)=>{
         const itemcode= action.payload.itemcode;
-        console.log("xc",state.cart);
-        console.log("lkkv",state.value);
+      
         if(itemcode in state.cart){
             state.cart[itemcode].qty = state.cart[itemcode].qty - action.payload.qty
         }
@@ -51,15 +50,15 @@ export const cartSlice = createSlice({
     },
     addFromCart:(state,action)=>{
         const itemcode= action.payload.itemcode;
-        console.log("xc",state.cart);
-        console.log("lkkv",state.value);
+      
+    
         if(itemcode in state.cart){
             state.cart[itemcode].qty = state.cart[itemcode].qty + action.payload.qty
         }
         state.successStore = true;
     },
     saveCart:(state,action)=>{
-      console.log("axax",action.payload)
+    
         localStorage.setItem("cart",JSON.stringify(action.payload));
         let subT=0;
         let keys = Object.keys(state.cart)
@@ -67,8 +66,7 @@ export const cartSlice = createSlice({
            subT += state.cart[keys[i]].price * state.cart[keys[i]].qty ;
         }
         state.subTotal=subT;
-        console.log(state,"state is");
-        console.log(subT,"okl");
+     
         
         state.successStore = false
     },
@@ -79,7 +77,7 @@ export const cartSlice = createSlice({
       state.cart={};
       state.subTotal=0;
       localStorage.setItem("cart",{});
-      console.log("cart is cleared");
+     
       state.successStore = true;
     },
     increment: (state) => {
@@ -88,7 +86,7 @@ export const cartSlice = createSlice({
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
       state.value += 1
-      console.log(state.value,"increment");
+    
       
     },
     decrement: (state) => {

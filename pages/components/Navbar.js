@@ -22,21 +22,20 @@ const Navbar = () => {
   useEffect(() => {
     if (successStore === true) {
       dispatch(saveCart(cart));
-      console.log("lss", cart);
+    
     }
   }, [successStore])
 
   useEffect(() => {
-    console.log("klklklkl");
+
 
     try {
       if (localStorage.getItem("cart")) {
         let cartdetail = {}
         let localvalue = JSON.parse(localStorage.getItem("cart"));
-        console.log("klkl item", localvalue);
+
         for (let item in localvalue) {
-          console.log("klkl lite", item)
-          console.log("klkl lite whole item is", localvalue[item]);
+       
           cartdetail[item] = {
             itemcode: item,
             name: localvalue[item].name,
@@ -46,7 +45,7 @@ const Navbar = () => {
             variant: localvalue[item].variant
           }
         }
-        console.log("klkl done", cartdetail);
+       
         dispatch(existCart(cartdetail));
         dispatch(saveCart(cartdetail));
 
@@ -54,7 +53,7 @@ const Navbar = () => {
         // dispatch(addToCart(JSON.parse(localStorage.getItem("cart"))))
       }
     } catch (error) {
-      console.error(error, "llll");
+    
       localStorage.clear()
     }
   }, [])
@@ -88,7 +87,7 @@ const Navbar = () => {
               <ul className="flex items-center space-x-6 font-bold ">
                 <Link href={"/panels"}>
                   <a>
-                    {" "}
+            
                     <li>Panels</li>
                   </a>
                 </Link>
@@ -118,7 +117,9 @@ const Navbar = () => {
             className="cart absolute right-0 mx-5 cursor-pointer flex "
           >
            <Link href={"/login"}>
-             <MdAccountCircle className="text-xl mx-2 md:text-2xl" />
+            <a>
+            <MdAccountCircle className="text-xl mx-2 md:text-2xl" />
+            </a>
              </Link>
             <AiOutlineShoppingCart   onClick={toggleCart} className="text-xl md:text-2xl " />
           </div>
@@ -138,7 +139,7 @@ const Navbar = () => {
               {Object.keys(cart).length === 0 && <div className="my-4 text-base font-normal">Your cart is Empty</div>
               }
               {Object.keys(cart).map((item) => {
-                console.log(item, "lo"); return <li key={item}>
+               return <li key={item}>
 
                   <div className="item flex my-5">
                     <div className="w-2/3 font-semibold text-sm">
@@ -161,7 +162,8 @@ const Navbar = () => {
             <div className="font-bold my-2">Subtotal: ₹{subTotal}</div>
             <div className="flex">
               <Link href={"/checkout"}>
-                <button className="flex mr-2 text-white bg-pink-500 border-0 py-2 px-4 focus:outline-none hover:bg-pink-600 rounded text-sm"><BsFillBagCheckFill className="m-0.5" />Checkout</button>
+             <a>  
+               <button className="flex mr-2 text-white bg-pink-500 border-0 py-2 px-4 focus:outline-none hover:bg-pink-600 rounded text-sm"><BsFillBagCheckFill className="m-0.5" />Checkout</button></a>
               </Link>
               <button onClick={() => dispatch(clearCart())} className="flex mr-2  text-white bg-pink-500 border-0 py-2 px-4 focus:outline-none hover:bg-pink-600 rounded text-sm">Clear Cart</button>
             </div>
