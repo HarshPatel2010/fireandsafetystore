@@ -3,8 +3,13 @@ import { useRouter } from "next/router";
 import { useDispatch,useSelector } from 'react-redux';
 import Image from "next/image";
 import { addToCart, increment, saveCart } from "../redux/slices/cartSlice";
+import mongoose from 'mongoose';
+import Product from "../../models/Product";
 
-const Slug = () => {
+const Slug = ({variants,product,checkv}) => {
+  console.log("check",checkv)
+   console.log(product,"productsl check")
+ console.log(variants,"varians check")
   const router = useRouter();
   const { slug } = router.query;
   const dispatch = useDispatch();
@@ -21,12 +26,21 @@ const Slug = () => {
     size:"Xl",
     variant:"red"
   });
-
-
+  const [color,setcolor]=useState(product.color);
+  const [size,setsize]=useState(product.size)
   const addToCartFunction =()=>{
-
-
-     dispatch(addToCart(selectedItemInfo));
+    console.log("zx",product)
+    const currentproduct={
+      itemcode:slug,
+      name:product.title,
+      price:product.price,
+      qty:1,
+      size:product.size,
+      variant:product.color,
+      img:product.img
+    }
+    console.log("cu",slug)
+     dispatch(addToCart(currentproduct));
   }
 
   const handleChange = (e)=>{
@@ -44,26 +58,33 @@ const Slug = () => {
     }
  
   }
+  const refreshVariants = (newSize,newColor)=>{
+    console.log(variants[newColor][newSize]["slug"],"v")
+    let url = `http://localhost:3000/product/${variants[newColor][newSize]["slug"]}`;
+    window.location=url;
+  }
+
   return (
     <>
       <section className="text-gray-600 body-font overflow-hidden">
         <div className="container px-5 py-16 mx-auto">
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
-           <div> 
-           <Image  
+           <div className="flex justify-center"> 
+           {/* <Image  
               alt="ecommerce"
               className="lg:w-1/2 w-full lg:h-auto px-24 md:h-64 md:px-0 object-cover object-top rounded"
-              src={"/images/panel.jpg"}
+              src={product.img}
               height={300}
               width={300}
-            />
+            /> */}
+              <img alt="ecommerce" class=" w-full lg:h-auto h-64 object-cover object-center rounded" src={product.img}></img>
            </div>
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h2 className="text-sm title-font text-gray-500 tracking-widest">
-                BRAND NAME
+                Fire Store
               </h2>
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                The Catcher in the Rye
+              {product.title}({product.size}/{product.color})
               </h1>
               <div className="flex mb-4">
                 <span className="flex items-center">
@@ -124,7 +145,7 @@ const Slug = () => {
                   </svg>
                   <span className="text-gray-600 ml-3">4 Reviews</span>
                 </span>
-                <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200 space-x-2s">
+                {/* <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200 space-x-2s">
                   <a className="text-gray-500">
                     <svg
                       fill="currentColor"
@@ -161,31 +182,32 @@ const Slug = () => {
                       <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
                     </svg>
                   </a>
-                </span>
+                </span> */}
               </div>
               <p className="leading-relaxed">
-                Fam locavore kickstarter distillery. Mixtape chillwave tumeric
-                sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo
-                juiceramps cornhole raw denim forage brooklyn. Everyday carry +1
-                seitan poutine tumeric. Gastropub blue bottle austin listicle
-                pour-over, neutra jean shorts keytar banjo tattooed umami
-                cardigan.
+             {product.desc}
               </p>
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
                 <div className="flex">
                   <span className="mr-3">Color</span>
-                  <button className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"></button>
-                  <button className="border-2 border-gray-300 ml-1 bg-gray-700 rounded-full w-6 h-6 focus:outline-none"></button>
-                  <button className="border-2 border-gray-300 ml-1 bg-pink-500 rounded-full w-6 h-6 focus:outline-none"></button>
+                  
+                   {  Object.keys(variants).includes("red") &&  <button onClick={()=>{refreshVariants(size,"red")}}  className={`border-2  ${color==="red" ? "border-black":"border-gray-300"}  ml-1 bg-red-700 rounded-full w-6 h-6 focus:outline-none`}></button> }
+                    { Object.keys(variants).includes("yellow") &&  <button  onClick={()=>{refreshVariants(size,"yellow")}}  className={`border-2  ${color==="yellow" ? "border-black":"border-gray-300"}  ml-1 bg-yellow-700 rounded-full w-6 h-6 focus:outline-none`}></button> }
+                   { Object.keys(variants).includes("green") &&  <button  onClick={()=>{refreshVariants(size,"green")}}   className={`border-2  ${color==="green" ? "border-black":"border-gray-300"}  ml-1 bg-green-700 rounded-full w-6 h-6 focus:outline-none`}></button> }
+                    { Object.keys(variants).includes("blue") &&  <button  onClick={()=>{refreshVariants(size,"blue")}}  className={`border-2  ${color==="blue" ? "border-black":"border-gray-300"}  ml-1 bg-blue-700 rounded-full w-6 h-6 focus:outline-none`}></button> }
+                   {  Object.keys(variants).includes("white") &&  <button  onClick={()=>{refreshVariants(size,"white")}}  className={`border-2  ${color==="white" ? "border-black":"border-gray-300"}  ml-1 bg-white-700 rounded-full w-6 h-6 focus:outline-none`}></button> }
+                  
+                
                 </div>
                 <div className="flex ml-6 items-center">
                   <span className="mr-3">Size</span>
                   <div className="relative">
-                    <select className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-500 text-base pl-3 pr-10">
-                      <option>SM</option>
-                      <option>M</option>
-                      <option>L</option>
-                      <option>XL</option>
+                    <select value={size} onChange={(e)=>{refreshVariants(e.target.value,color)}} className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-500 text-base pl-3 pr-10">
+                   {Object.keys(variants[color]).map((item)=>{
+                    return <option key={item}>{item}</option>
+                    
+                    })}
+                
                     </select>
                     <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
                       <svg
@@ -240,5 +262,26 @@ const Slug = () => {
     </>
   );
 };
+export async function getServerSideProps(context) {
+  //check connection from  mongoose
+  if(!mongoose.connections[0].readyState){
+    await mongoose.connect(process.env.MONGO_URI)
+  }
+  let product =await Product.findOne({slug:context.query.slug});
+  let variants = await Product.find({title:product.title});
+  console.log(variants)
+  let colorSizeSlug={};
+  for (let item of variants){
+    if(Object.keys(colorSizeSlug).includes(item.color)){
+      colorSizeSlug[item.color][item.size]={slug:item.slug};
+    }else{
+      colorSizeSlug[item.color]={}
+      colorSizeSlug[item.color][item.size]={slug:item.slug};
+    }
+  }
+  return {
+    props: { variants:JSON.parse(JSON.stringify(colorSizeSlug)),product:JSON.parse(JSON.stringify(product)),checkv:JSON.parse(JSON.stringify(variants))}, // will be passed to the page component as props
+  }
+}
 
 export default Slug;

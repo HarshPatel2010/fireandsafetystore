@@ -13,17 +13,18 @@ export const cartSlice = createSlice({
   reducers: {
     addToCart:(state,action)=>{
      
-    
+    console.log("xc",action.payload)
         const name = action.payload.name;
         const price = action.payload.price;
         const qty = action.payload.qty;
         const itemcode= action.payload.itemcode
         const variant = action.payload.variant;
-        const size = action.payload.itemcode
+        const size = action.payload.size
+        const img = action.payload.img
         if(itemcode in state.cart){
             state.cart[itemcode].qty = state.cart[itemcode].qty + action.payload.qty
         }else{
-            state.cart[itemcode]={qty:1,price:price,name:name,size:size,variant:variant}
+            state.cart[itemcode]={qty:1,price:price,name:name,size:size,variant:variant,img:img}
         }
         
         localStorage.setItem("cart",JSON.stringify(state.cart));

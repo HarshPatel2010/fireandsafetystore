@@ -139,11 +139,12 @@ const Navbar = () => {
               {Object.keys(cart).length === 0 && <div className="my-4 text-base font-normal">Your cart is Empty</div>
               }
               {Object.keys(cart).map((item) => {
+                console.log("ljk",cart[item])
                return <li key={item}>
 
                   <div className="item flex my-5">
                     <div className="w-2/3 font-semibold text-sm">
-                      {cart[item].name}
+                      {cart[item].name}({cart[item].size}/{cart[item].variant})
                     </div>
                     <div className="w-1/3 flex justify-center font-semibold items-center text-xm">
                       <span className="mx-2">

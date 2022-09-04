@@ -5,7 +5,7 @@ import Product from '../models/Product';
 import mongoose from 'mongoose';
 
 const panels = ({products})=> {
-  console.log(products)
+ 
   return (
     <div >
       <section className="text-gray-600 body-font">
@@ -55,7 +55,7 @@ export async function getServerSideProps(context) {
   let panel = {};
   for (let item of products){
           if(item.title in panel){
-              console.log(panel,"pnL")
+            
               if( !panel[item.title].color.includes(item.color) && item.availableQty>0 ){
                   panel[item.title].color.push(item.color);
               }
@@ -64,7 +64,7 @@ export async function getServerSideProps(context) {
               }
 
           }else{
-              console.log(panel,"pnL ESl")
+          
               panel[item.title]=JSON.parse(JSON.stringify(item));
               if(item.availableQty > 0 ){
                   panel[item.title].color=[item.color];
