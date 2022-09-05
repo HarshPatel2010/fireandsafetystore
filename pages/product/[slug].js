@@ -116,7 +116,7 @@ const Slug = ({ variants, product, checkv }) => {
               height={300}
               width={300}
             /> */}
-              <img alt="ecommerce" class=" w-full lg:h-auto h-64 object-cover object-center rounded" src={product.img}></img>
+              <img alt="ecommerce" className=" w-full lg:h-auto h-64 object-cover object-center rounded" src={product.img}></img>
             </div>
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h2 className="text-sm title-font text-gray-500 tracking-widest">
