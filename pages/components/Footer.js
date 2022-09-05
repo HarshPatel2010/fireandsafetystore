@@ -19,16 +19,16 @@ const Footer = () => {
             <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">SHOP</h2>
             <nav className="list-none mb-10">
               <li>
-                <a className="text-gray-600 hover:text-gray-800">First Link</a>
+              <Link href={"/panels"}><a className="text-gray-600 hover:text-gray-800">Panels</a></Link>  
               </li>
               <li>
-                <a className="text-gray-600 hover:text-gray-800">Second Link</a>
+              <Link href={"/hydrants"}><a className="text-gray-600 hover:text-gray-800">Hydrant valves</a></Link>  
               </li>
               <li>
-                <a className="text-gray-600 hover:text-gray-800">Third Link</a>
+              <Link href={"/hydrants"}><a className="text-gray-600 hover:text-gray-800">Extingushers</a></Link>  
               </li>
               <li>
-                <a className="text-gray-600 hover:text-gray-800">Fourth Link</a>
+              <Link href={"/hydrants"}><a className="text-gray-600 hover:text-gray-800">Sprinklers</a></Link>  
               </li>
             </nav>
           </div>

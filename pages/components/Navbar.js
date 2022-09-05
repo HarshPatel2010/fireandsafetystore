@@ -88,25 +88,25 @@ const Navbar = () => {
                 <Link href={"/panels"}>
                   <a>
             
-                    <li>Panels</li>
+                    <li className="hover:text-pink-600">Panels</li>
                   </a>
                 </Link>
                 <Link href={"/sprinklers"}>
                   <a>
                  
-                    <li>Sprinklers</li>
+                    <li className="hover:text-pink-600">Sprinklers</li>
                   </a>
                 </Link>
                 <Link href={"/hydrants"}>
                   <a>
                    
-                    <li>Hydrant</li>
+                    <li className="hover:text-pink-600">Hydrant</li>
                   </a>
                 </Link>
                 <Link href={"/extingushers"}>
                   <a>
                     
-                    <li>Extingushers</li>
+                    <li className="hover:text-pink-600">Extingushers</li>
                   </a>
                 </Link>
               </ul>
@@ -126,7 +126,7 @@ const Navbar = () => {
 
           <div
             ref={ref}
-            className=" w-72 h-[100vh] sideCart absolute top-0 right-0 bg-pink-100 py-10 px-8 transform transition-transform translate-x-full "
+            className=" w-72 h-[100vh]  sideCart absolute top-0 right-0 bg-pink-100 py-10 px-8 transform transition-transform translate-x-full "
           >
             <h2 className="font-bold text-xl text-center"> shopping cart</h2>
             <span

@@ -35,7 +35,7 @@ const Checkout = () => {
         <div className="px-2 w-1/2">
           <div className=" mb-4">
             <label
-              htmlhtmlFor="name"
+              htmlFor="name"
               className="leading-7 text-sm text-gray-600"
             >
               Name
@@ -51,7 +51,7 @@ const Checkout = () => {
         <div className="px-2 w-1/2">
           <div className=" mb-4">
             <label
-              htmlhtmlFor="email"
+              htmlFor="email"
               className="leading-7 text-sm text-gray-600"
             >
               Email
@@ -68,7 +68,7 @@ const Checkout = () => {
       <div className="px-2 w-full">
         <div className=" mb-4">
           <label
-            htmlhtmlFor="address"
+            htmlFor="address"
             className="leading-7 text-sm text-gray-600"
           >
             Address
@@ -87,7 +87,7 @@ const Checkout = () => {
         <div className="px-2 w-1/2">
           <div className=" mb-4">
             <label
-              htmlhtmlFor="phone"
+              htmlFor="phone"
               className="leading-7 text-sm text-gray-600"
             >
               Phone
@@ -103,7 +103,7 @@ const Checkout = () => {
         <div className="px-2 w-1/2">
           <div className=" mb-4">
             <label
-              htmlhtmlFor="city"
+              htmlFor="city"
               className="leading-7 text-sm text-gray-600"
             >
               City
@@ -121,7 +121,7 @@ const Checkout = () => {
         <div className="px-2 w-1/2">
           <div className=" mb-4">
             <label
-              htmlhtmlFor="state"
+              htmlFor="state"
               className="leading-7 text-sm text-gray-600"
             >
               State
@@ -137,7 +137,7 @@ const Checkout = () => {
         <div className="px-2 w-1/2">
           <div className=" mb-4">
             <label
-              htmlhtmlFor="pincode"
+              htmlFor="pincode"
               className="leading-7 text-sm text-gray-600"
             >
               Pincode
