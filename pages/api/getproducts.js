@@ -1,5 +1,5 @@
 import  Product from "../../models/Product";
-import connectdb from "../../middleware/mongoose";
+import connectdb from "../../middleware/mongoose"; 
 
 const handler = async (req,res)=>{
     let products = await Product.find();
