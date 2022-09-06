@@ -4,8 +4,12 @@ import Image from 'next/image';
 import { createSerializableStateInvariantMiddleware } from '@reduxjs/toolkit';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/router';
+//Eyncryption
+var CryptoJS = require("crypto-js");
 
 const Login = () => {
+  const router = useRouter();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
@@ -31,22 +35,25 @@ const Login = () => {
     let response = await res.json();
     console.log(response,"mm")
    if(response.success){
-
+    localStorage.setItem("token",response.token)
     setEmail("")
     setPassword("");
     toast(' 😁 You Logged in Successfully', {
       position: "top-left",
-      autoClose: 5000,
+      autoClose: 1000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
     });
+    setTimeout(() => {
+      router.push("http://localhost:3000")
+    }, 2000);
    }else{
     toast.error(response.error, {
       position: "top-left",
-      autoClose: 5000,
+      autoClose: 1000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
