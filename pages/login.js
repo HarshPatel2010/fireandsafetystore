@@ -35,7 +35,7 @@ const Login = () => {
     let response = await res.json();
     console.log(response,"mm")
    if(response.success){
-    localStorage.setItem("token",response.token)
+    localStorage.setItem("token",response.token);
     setEmail("")
     setPassword("");
     toast(' 😁 You Logged in Successfully', {

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect,useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import {
   AiOutlineShoppingCart,
@@ -11,13 +11,26 @@ import {
 import { BsFillBagCheckFill } from "react-icons/bs";
 import { MdAccountCircle } from "react-icons/md";
 import { addFromCart, addToCart, clearCart, existCart, removeFromCart, saveCart } from "../redux/slices/cartSlice";
+import { useRouter } from "next/router";
+
 
 const Navbar = () => {
   const ref = useRef(null);
+  const router = useRouter()
   const cart = useSelector(state => state.cart.cart);
   const successStore = useSelector(state => state.cart.successStore);
   const subTotal = useSelector(state => state.cart.subTotal)
   const dispatch = useDispatch();
+
+  const [user,setUser] = useState({value:null})
+  const [key,setKey] = useState(0);
+ const [dropDown, setdropDown] = useState(false)
+
+ const logout = ()=>{
+  localStorage.removeItem("token");
+  setKey(Math.random());
+  setUser({value:null})
+ }
 
   useEffect(() => {
     if (successStore === true) {
@@ -67,9 +80,21 @@ const Navbar = () => {
       ref.current.classList.add("translate-x-full");
     }
   };
+  useEffect(() => {
+    if(localStorage.getItem("token")){
+     setUser({value:localStorage.getItem("token")})
+     setKey(Math.random())
+    }
+   }, [router.query]);
+   useEffect(() => {
+    if(localStorage.getItem("token")){
+     setUser({value:localStorage.getItem("token")})
+     setKey(Math.random())
+    }
+   }, []);
   return (
     <div className="sticky top-0 bg-white z-10 shadow-2xl " >
-      <header className="text-gray-600 body-font ">
+      <header className="text-gray-600 body-font   ">
         <div className="container mx-auto my-0 flex flex-wrap px-5 flex-col md:flex-row items-center">
           <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
             <Link href={"/"}>
@@ -114,13 +139,24 @@ const Navbar = () => {
           </nav>
           <div
           
-            className="cart absolute right-0 mx-5 cursor-pointer flex "
+            className="cart absolute right-0 mx-5 cursor-pointer flex top-5 items-center "
           >
-           <Link href={"/login"}>
-            <a>
+            <a onMouseOver={()=>{setdropDown(true)}} onMouseLeave={()=>{setdropDown(false)}} >
+          {dropDown &&   <div onMouseOver={()=>{setdropDown(true)}} onMouseLeave={()=>{setdropDown(false)}} className="absolute right-6 top-6 bg-pink-300 px-5 py-1 rounded-md w-40 text-sm">
+            <ul>
+              <Link href={"/myaccount"}><li className="py-1 hover:text-pink-700 text-sm font-bold">My Account</li></Link>
+              <Link href={"/orders"}><li className="py-1 hover:text-pink-700 text-sm font-bold">Orders</li></Link>
+              <li onClick={logout} className="py-1 hover:text-pink-700 text-sm font-bold">Logout</li>
+            </ul>
+           </div>}
+            {user.value && 
             <MdAccountCircle className="text-xl mx-2 md:text-2xl" />
-            </a>
-             </Link>
+           }
+           </a>
+           
+          {!user.value && <Link href={"/login"}><a>
+            <button className="bg-pink-600 px-2 py-1 rounded-md text-sm text-white mx-2">Login</button>
+            </a></Link>}
             <AiOutlineShoppingCart   onClick={toggleCart} className="text-xl md:text-2xl " />
           </div>
 
