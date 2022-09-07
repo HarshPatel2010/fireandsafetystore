@@ -10,8 +10,8 @@ var CryptoJS = require("crypto-js");
 
 const Login = () => {
   const router = useRouter();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleChange = (e) => {
     if (e.target.name === "email") {
@@ -25,7 +25,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const data = { email, password };
-    let res = await fetch('http://localhost:3000/api/login', {
+    let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/login`, {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -33,7 +33,6 @@ const Login = () => {
       body: JSON.stringify(data),
     });
     let response = await res.json();
-    console.log(response, "mm")
     if (response.success) {
       localStorage.setItem("token", response.token);
       setEmail("")
@@ -48,7 +47,7 @@ const Login = () => {
         progress: undefined,
       });
       setTimeout(() => {
-        router.push("http://localhost:3000")
+        router.push(`${process.env.NEXT_PUBLIC_HOST}`)
       }, 2000);
     } else {
       toast.error(response.error, {

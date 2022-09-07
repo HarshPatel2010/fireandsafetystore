@@ -9,10 +9,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Slug = ({ variants, product, checkv }) => {
-
-  console.log("check", checkv)
-  console.log(product, "productsl check")
-  console.log(variants, "varians check")
   const router = useRouter();
   const { slug } = router.query;
   const dispatch = useDispatch();
@@ -33,7 +29,6 @@ const Slug = ({ variants, product, checkv }) => {
   const [color, setcolor] = useState(product.color);
   const [size, setsize] = useState(product.size)
   const addToCartFunction = () => {
-    console.log("zx", product)
     const currentproduct = {
       itemcode: slug,
       name: product.title,
@@ -43,7 +38,6 @@ const Slug = ({ variants, product, checkv }) => {
       variant: product.color,
       img: product.img
     }
-    console.log("cu", slug)
     dispatch(addToCart(currentproduct));
   }
 
@@ -54,7 +48,7 @@ const Slug = ({ variants, product, checkv }) => {
   const checkserviceability = async () => {
   
 
-    let allPincodes = await fetch("http://localhost:3000/api/pincode");
+    let allPincodes = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`);
     let allPincodesJson = await allPincodes.json();
     if (allPincodesJson.includes(parseInt(pin))) {
       setservice(true);
@@ -82,8 +76,7 @@ const Slug = ({ variants, product, checkv }) => {
 
   }
   const refreshVariants = (newSize, newColor) => {
-    console.log(variants[newColor][newSize]["slug"], "v")
-    let url = `http://localhost:3000/product/${variants[newColor][newSize]["slug"]}`;
+    let url = `${process.env.NEXT_PUBLIC_HOST}/product/${variants[newColor][newSize]["slug"]}`;
     window.location = url;
   }
   const buyNow = () => {
@@ -311,7 +304,6 @@ export async function getServerSideProps(context) {
   }
   let product = await Product.findOne({ slug: context.query.slug });
   let variants = await Product.find({ title: product.title,category:product.category });
-  console.log(variants)
   let colorSizeSlug = {};
   for (let item of variants) {
     if (Object.keys(colorSizeSlug).includes(item.color)) {

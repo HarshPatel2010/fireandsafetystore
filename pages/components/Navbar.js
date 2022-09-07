@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { useRef, useEffect,useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import {
   AiOutlineShoppingCart,
@@ -22,21 +22,21 @@ const Navbar = () => {
   const subTotal = useSelector(state => state.cart.subTotal)
   const dispatch = useDispatch();
 
-  const [user,setUser] = useState({value:null})
-  const [key,setKey] = useState(0);
- const [dropDown, setdropDown] = useState(false)
+  const [user, setUser] = useState({ value: null })
+  const [key, setKey] = useState(0);
+  const [dropDown, setdropDown] = useState(false)
 
- const logout = ()=>{
-  localStorage.removeItem("token");
-  setKey(Math.random());
-  setUser({value:null})
-  router.push("/")
- }
+  const logout = () => {
+    localStorage.removeItem("token");
+    setKey(Math.random());
+    setUser({ value: null })
+    router.push("/")
+  }
 
   useEffect(() => {
     if (successStore === true) {
       dispatch(saveCart(cart));
-    
+
     }
   }, [successStore])
 
@@ -49,7 +49,7 @@ const Navbar = () => {
         let localvalue = JSON.parse(localStorage.getItem("cart"));
 
         for (let item in localvalue) {
-       
+
           cartdetail[item] = {
             itemcode: item,
             name: localvalue[item].name,
@@ -59,7 +59,7 @@ const Navbar = () => {
             variant: localvalue[item].variant
           }
         }
-       
+
         dispatch(existCart(cartdetail));
         dispatch(saveCart(cartdetail));
 
@@ -67,7 +67,7 @@ const Navbar = () => {
         // dispatch(addToCart(JSON.parse(localStorage.getItem("cart"))))
       }
     } catch (error) {
-    
+
       localStorage.clear()
     }
   }, [])
@@ -82,17 +82,17 @@ const Navbar = () => {
     }
   };
   useEffect(() => {
-    if(localStorage.getItem("token")){
-     setUser({value:localStorage.getItem("token")})
-     setKey(Math.random())
+    if (localStorage.getItem("token")) {
+      setUser({ value: localStorage.getItem("token") })
+      setKey(Math.random())
     }
-   }, [router.query]);
-   useEffect(() => {
-    if(localStorage.getItem("token")){
-     setUser({value:localStorage.getItem("token")})
-     setKey(Math.random())
+  }, [router.query]);
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      setUser({ value: localStorage.getItem("token") })
+      setKey(Math.random())
     }
-   }, []);
+  }, []);
   return (
     <div className="sticky top-0 bg-white z-10 shadow-2xl " >
       <header className="text-gray-600 body-font   ">
@@ -113,25 +113,25 @@ const Navbar = () => {
               <ul className="flex items-center space-x-6 font-bold ">
                 <Link href={"/panels"}>
                   <a>
-            
+
                     <li className="hover:text-pink-600">Panels</li>
                   </a>
                 </Link>
                 <Link href={"/sprinklers"}>
                   <a>
-                 
+
                     <li className="hover:text-pink-600">Sprinklers</li>
                   </a>
                 </Link>
                 <Link href={"/hydrants"}>
                   <a>
-                   
+
                     <li className="hover:text-pink-600">Hydrant</li>
                   </a>
                 </Link>
                 <Link href={"/extingushers"}>
                   <a>
-                    
+
                     <li className="hover:text-pink-600">Extingushers</li>
                   </a>
                 </Link>
@@ -139,26 +139,25 @@ const Navbar = () => {
             </div>
           </nav>
           <div
-          
             className="cart absolute right-0 mx-5 cursor-pointer flex top-5 items-center "
           >
-            <a onMouseOver={()=>{setdropDown(true)}} onMouseLeave={()=>{setdropDown(false)}} >
-          {dropDown &&   <div onMouseOver={()=>{setdropDown(true)}} onMouseLeave={()=>{setdropDown(false)}} className="absolute right-6 top-6 bg-white shadow-lg px-5 py-1 rounded-md w-40 text-sm">
-            <ul>
-              <Link href={"/myaccount"}><li className="py-1 hover:text-pink-700 text-sm font-bold">My Account</li></Link>
-              <Link href={"/orders"}><li className="py-1 hover:text-pink-700 text-sm font-bold">Orders</li></Link>
-              <li onClick={logout} className="py-1 hover:text-pink-700 text-sm font-bold">Logout</li>
-            </ul>
-           </div>}
-            {user.value && 
-            <MdAccountCircle className="text-xl mx-2 md:text-2xl" />
-           }
-           </a>
-           
-          {!user.value && <Link href={"/login"}><a>
-            <button className="bg-pink-600 px-2 py-1 rounded-md text-sm text-white mx-2">Login</button>
+            <span onMouseOver={() => { setdropDown(true) }} onMouseLeave={() => { setdropDown(false) }} >
+              {dropDown && <div onMouseOver={() => { setdropDown(true) }} onMouseLeave={() => { setdropDown(false) }} className="absolute right-6 top-6 bg-white shadow-lg px-5 py-1 rounded-md w-40 text-sm">
+                <ul>
+                  <Link href={"/myaccount"}><li className="py-1 hover:text-pink-700 text-sm font-bold">My Account</li></Link>
+                  <Link href={"/orders"}><li className="py-1 hover:text-pink-700 text-sm font-bold">Orders</li></Link>
+                  <li onClick={logout} className="py-1 hover:text-pink-700 text-sm font-bold">Logout</li>
+                </ul>
+              </div>}
+              {user.value &&
+                <MdAccountCircle className="text-xl mx-2 md:text-2xl" />
+              }
+            </span>
+
+            {!user.value && <Link href={"/login"}><a>
+              <button className="bg-pink-600 px-2 py-1 rounded-md text-sm text-white mx-2">Login</button>
             </a></Link>}
-            <AiOutlineShoppingCart   onClick={toggleCart} className="text-xl md:text-2xl " />
+            <AiOutlineShoppingCart onClick={toggleCart} className="text-xl md:text-2xl " />
           </div>
 
           <div
@@ -176,8 +175,7 @@ const Navbar = () => {
               {Object.keys(cart).length === 0 && <div className="my-4 text-base font-normal">Your cart is Empty</div>
               }
               {Object.keys(cart).map((item) => {
-                console.log("ljk",cart[item])
-               return <li key={item}>
+                return <li key={item}>
 
                   <div className="item flex my-5">
                     <div className="w-2/3 font-semibold text-sm">
@@ -200,8 +198,8 @@ const Navbar = () => {
             <div className="font-bold my-2">Subtotal: ₹{subTotal}</div>
             <div className="flex">
               <Link href={"/checkout"}>
-             <a>  
-               <button className="flex mr-2 text-white bg-pink-500 border-0 py-2 px-4 focus:outline-none hover:bg-pink-600 rounded text-sm"><BsFillBagCheckFill className="m-0.5" />Checkout</button></a>
+                <a>
+                  <button className="flex mr-2 text-white bg-pink-500 border-0 py-2 px-4 focus:outline-none hover:bg-pink-600 rounded text-sm"><BsFillBagCheckFill className="m-0.5" />Checkout</button></a>
               </Link>
               <button onClick={() => dispatch(clearCart())} className="flex mr-2  text-white bg-pink-500 border-0 py-2 px-4 focus:outline-none hover:bg-pink-600 rounded text-sm">Clear Cart</button>
             </div>

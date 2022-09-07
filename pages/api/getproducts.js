@@ -6,7 +6,6 @@ const handler = async (req,res)=>{
     let panel = {};
     for (let item of products){
             if(item.title in panel){
-                console.log(panel,"pnL")
                 if( !panel[item.title].color.includes(item.color) && item.availableQty>0 ){
                     panel[item.title].color.push(item.color);
                 }
@@ -15,7 +14,6 @@ const handler = async (req,res)=>{
                 }
 
             }else{
-                console.log(panel,"pnL ESl")
                 panel[item.title]=JSON.parse(JSON.stringify(item));
                 if(item.availableQty > 0 ){
                     panel[item.title].color=[item.color];

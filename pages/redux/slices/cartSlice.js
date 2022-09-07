@@ -12,8 +12,6 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart:(state,action)=>{
-     
-    console.log("xc",action.payload)
         const name = action.payload.name;
         const price = action.payload.price;
         const qty = action.payload.qty;
