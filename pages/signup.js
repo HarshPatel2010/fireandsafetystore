@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Link from 'next/link';
 import { createSerializableStateInvariantMiddleware } from '@reduxjs/toolkit';
 import { toast, ToastContainer } from 'react-toastify';
@@ -67,6 +67,12 @@ const Signup = () => {
 
 
   }
+  useEffect(() => {
+    if(localStorage.getItem("token")){
+      router.push("/")
+    }
+    }, [])
+    
   return (
     <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <ToastContainer

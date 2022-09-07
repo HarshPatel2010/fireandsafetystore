@@ -30,6 +30,7 @@ const Navbar = () => {
   localStorage.removeItem("token");
   setKey(Math.random());
   setUser({value:null})
+  router.push("/")
  }
 
   useEffect(() => {
@@ -142,7 +143,7 @@ const Navbar = () => {
             className="cart absolute right-0 mx-5 cursor-pointer flex top-5 items-center "
           >
             <a onMouseOver={()=>{setdropDown(true)}} onMouseLeave={()=>{setdropDown(false)}} >
-          {dropDown &&   <div onMouseOver={()=>{setdropDown(true)}} onMouseLeave={()=>{setdropDown(false)}} className="absolute right-6 top-6 bg-pink-300 px-5 py-1 rounded-md w-40 text-sm">
+          {dropDown &&   <div onMouseOver={()=>{setdropDown(true)}} onMouseLeave={()=>{setdropDown(false)}} className="absolute right-6 top-6 bg-white shadow-lg px-5 py-1 rounded-md w-40 text-sm">
             <ul>
               <Link href={"/myaccount"}><li className="py-1 hover:text-pink-700 text-sm font-bold">My Account</li></Link>
               <Link href={"/orders"}><li className="py-1 hover:text-pink-700 text-sm font-bold">Orders</li></Link>
